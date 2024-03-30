@@ -1,37 +1,47 @@
 steps:
   # Step 1: Build the Docker image using the Dockerfile in the repository
-  
-name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'us-central1-docker.pkg.dev/smart-processor-412022/typescriptto-repository/typescript-app:$COMMIT_SHA', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/smart-processor-412022/typescriptto-repository/typescript-app:$COMMIT_SHA', '.']
 
   # Step 2: Push the Docker image to Google Container Registry
-  
-name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'us-central1-docker.pkg.dev/smart-processor-412022/typescriptto-repository/typescript-app:$COMMIT_SHA']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/smart-processor-412022/typescriptto-repository/typescript-app:$COMMIT_SHA']
 
   # Step 3: Set up kubectl to use the cluster's credentials
-  
-name: 'gcr.io/cloud-builders/gcloud'
-  args: ['container', 'clusters', 'get-credentials', 'todoproject-cluster', '--region', 'us-central1', '--project', 'smart-processor-412022']
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['container', 'clusters', 'get-credentials', 'todoproject-cluster', '--region', 'us-central1', '--project', 'smart-processor-412022']
 
   # Step 4: Apply the Kubernetes deployment manifest
-  
-name: 'gcr.io/cloud-builders/kubectl'
-  args: ['apply', '-f', 'k8s/deployment.yaml']
-  env:
-'CLOUDSDK_COMPUTE_REGION=us-central1'
-'CLOUDSDK_CONTAINER_CLUSTER=todoproject-cluster'
-'CLOUDSDK_CORE_PROJECT=smart-processor-412022'  # Ensure gcloud is authenticated to the correct project
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', 'k8s/deployment.yaml']
+    env:
+      - 'CLOUDSDK_COMPUTE_REGION=us-central1'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=todoproject-cluster'
+      - 'CLOUDSDK_CORE_PROJECT=smart-processor-412022'
 
   # Step 5: Apply the Kubernetes service manifest
-  
-name: 'gcr.io/cloud-builders/kubectl'
-  args: ['apply', '-f', 'k8s/service.yaml']
-  env:
-'CLOUDSDK_COMPUTE_REGION=us-central1'
-'CLOUDSDK_CONTAINER_CLUSTER=todoproject-cluster'
-'CLOUDSDK_CORE_PROJECT=smart-processor-412022'  # Ensure gcloud is authenticated to the correct project
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', 'k8s/service.yaml']
+    env:
+      - 'CLOUDSDK_COMPUTE_REGION=us-central1'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=todoproject-cluster'
+      - 'CLOUDSDK_CORE_PROJECT=smart-processor-412022'
+
+  # Step 6: Apply the MongoDB Kubernetes deployment manifest
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', 'k8s/mongodb-deployment.yaml']
+    env:
+      - 'CLOUDSDK_COMPUTE_REGION=us-central1'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=todoproject-cluster'
+      - 'CLOUDSDK_CORE_PROJECT=smart-processor-412022'
+
+  # Step 7: Apply the MongoDB Kubernetes service manifest
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', 'k8s/mongodb-service.yaml']
+    env:
+      - 'CLOUDSDK_COMPUTE_REGION=us-central1'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=todoproject-cluster'
+      - 'CLOUDSDK_CORE_PROJECT=smart-processor-412022'
 
 images:
-  
-'us-central1-docker.pkg.dev/smart-processor-412022/typescriptto-repository/typescript-app:$COMMIT_SHA'
+  - 'us-central1-docker.pkg.dev/smart-processor-412022/typescriptto-repository/typescript-app:$COMMIT_SHA'
