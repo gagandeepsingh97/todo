@@ -7,9 +7,10 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'us-central1-docker.pkg.dev/to-do-418823/typescriptto-repository/typescript-app:$COMMIT_SHA']
 
-  # Step 3: Set up kubectl to use the cluster's credentials
+    # Step 3: Set up kubectl to use the cluster's credentials
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['container', 'clusters', 'get-credentials', 'todo-cluster', '--region', 'us-central1', '--project', 'to-do-418823']
+    args: ['container', 'clusters', 'get-credentials', 'todo-cluster', '--zone', 'us-central1-a', '--project', 'to-do-418823']
+
 
   # Step 4: Apply the Kubernetes deployment manifest
   - name: 'gcr.io/cloud-builders/kubectl'
