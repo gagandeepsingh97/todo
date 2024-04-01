@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: typescript-app
-        image: us-central1-docker.pkg.dev/to-do-418823/typescriptto-repository/typescript-app:$COMMIT_SHA
+        image: us-central1-docker.pkg.dev/to-do-418823/typescriptto-repository/typescript-app:sha256:8980a28e0d8835bec37e6ad8a897b92408d8be0f30e618e31ebe5120a2415422
         ports:
         - containerPort: 3000
