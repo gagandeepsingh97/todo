@@ -27,6 +27,7 @@ spec:
         image: mongo
         ports:
         - containerPort: 27017
+        imagePullPolicy: Always
         # Additional settings for MongoDB configuration
         # Uncomment and modify the following lines as needed:
 
