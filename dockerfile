@@ -10,6 +10,9 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
+# Install mysql package
+RUN npm install mysql
+
 # Copy the rest of the application code
 COPY . .
 
