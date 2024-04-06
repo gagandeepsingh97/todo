@@ -19,13 +19,13 @@ spec:
         - containerPort: 3306
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: mysqldb
+          value: admin
         - name: MYSQL_DATABASE
           value: mysqldb
         - name: MYSQL_USER
-          value: root
+          value: admin
         - name: MYSQL_PASSWORD
-          value: mysqldb
+          value: admin
         volumeMounts:
         - name: mysql-data
           mountPath: /var/lib/mysql
