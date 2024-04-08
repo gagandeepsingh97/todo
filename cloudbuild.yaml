@@ -30,7 +30,7 @@ steps:
 
   # Step 6: Apply the MongoDB Kubernetes deployment manifest
   - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['apply', '-f', 'k8s/mysqldb-deployment.yaml']
+    args: ['apply', '-f', 'k8s/mongodb-deployment.yaml']
     env:
       - 'CLOUDSDK_COMPUTE_REGION=us-central1-a'
       - 'CLOUDSDK_CONTAINER_CLUSTER=todo-cluster'
@@ -38,7 +38,7 @@ steps:
 
   # Step 7: Apply the MongoDB Kubernetes service manifest
   - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['apply', '-f', 'k8s/mysqldb-service.yaml']
+    args: ['apply', '-f', 'k8s/mongodb-service.yaml']
     env:
       - 'CLOUDSDK_COMPUTE_REGION=us-central1-a'
       - 'CLOUDSDK_CONTAINER_CLUSTER=todo-cluster'
