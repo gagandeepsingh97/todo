@@ -1,10 +1,10 @@
 import { Applicaction } from "./app";
-import { connectToMySQL } from "./database"; // Import the MySQL connection function
+import { connectToMongodb } from "./database";
 
 async function main() {
-  await connectToMySQL(); // Call the MySQL connection function
+  await connectToMongodb();
   const app = new Applicaction();
   app.start();
 }
 
-main();
+main()
